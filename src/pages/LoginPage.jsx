@@ -1,14 +1,39 @@
 import logo from "../assests/Group8.png"
 import styled from "styled-components"
+import { useState } from "react"
+import axios from "axios"
 
 export default function LoginPage() {
+    const [login, setLogin] = useState({ email: "", password: "" })
+
+
+    function requisicao() {
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", login)
+        promise.then(res => {/* fazer alguma coisa com os dados */ })
+        promise.catch(err => { alert("Você não tem um cadatro ainda.") })
+    }
     return (
         <ContainerPage>
             <img src={logo} alt="LogoTracklt" />
-            <LoginForm>
-                <input placeholder="email" />
-                <input placeholder="senha" />
-                <button>Entrar</button>
+            <LoginForm onSubmit={(event) => {
+                event.preventDefault()
+                console.log("event", event)
+                requisicao()
+            }}>
+                <input type="email" placeholder="email"
+                    value={login.email}
+                    onChange={(event) => {
+                        setLogin({ ...login, email: event.target.value })
+                    }}
+
+                />
+                <input type="password" placeholder="senha"
+                    value={login.password}
+                    onChange={(event) => {
+                        setLogin({ ...login, password: event.target.value })
+                    }}
+                />
+                <button type="submit">Entrar</button>
                 <p>Não tem uma conta? Cadastre-se!</p>
             </LoginForm>
         </ContainerPage>
@@ -27,7 +52,7 @@ const ContainerPage = styled.div`
 
     }
 `
-const LoginForm = styled.div`
+const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
