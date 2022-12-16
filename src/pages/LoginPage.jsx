@@ -2,6 +2,7 @@ import logo from "../assests/Group8.png"
 import styled from "styled-components"
 import { useState } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 export default function LoginPage() {
     const [login, setLogin] = useState({ email: "", password: "" })
@@ -34,7 +35,7 @@ export default function LoginPage() {
                     }}
                 />
                 <button type="submit">Entrar</button>
-                <p>Não tem uma conta? Cadastre-se!</p>
+                <StyledLink to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
             </LoginForm>
         </ContainerPage>
     )
@@ -75,11 +76,13 @@ const LoginForm = styled.form`
         border: none;
         margin-bottom: 20px;
     }
-    p{
+   
+`
+const StyledLink = styled(Link)`
         color: #52B6FF;
         text-align: center;
         text-decoration-line: underline;
         font-weight: 400;
         font-size: 13.976px;
-    }
+        cursor: pointer;
 `
