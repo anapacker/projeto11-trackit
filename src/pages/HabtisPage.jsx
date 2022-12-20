@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import CreateHabits from "../components/CreateHabits";
+import HabitsCard from "../components/HabitsCard";
 import NavBar from "../components/NavBar";
 import UserInfosContext from "../contexts/UserInfosContext"
 
@@ -36,7 +37,14 @@ export default function HabtisPage() {
                     <p>
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
                     </p>
-                    : <p>kasjflkasfk</p>
+                    : ltHabtis.map((habit) => {
+                        return (
+                            <HabitsCard
+                                name={habit.name}
+                                days={habit.days}
+                            />
+                        )
+                    })
                 }
                 <h1>Meus hábitos</h1>
                 <button className="ButtonCreate" onClick={() => setCreateHabit(true)}>+</button>
