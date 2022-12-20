@@ -11,6 +11,7 @@ export default function HabtisPage() {
     const [habtis, sethabits] = useState({ name: "", days: [] })
     const [ltHabtis, setLtHabits] = useState([])
     const [createHabit, setCreateHabit] = useState(false)
+    const [atualizarLista, setAtualizarLista] = useState(0)
 
     const config = {
         headers: {
@@ -25,7 +26,7 @@ export default function HabtisPage() {
             console.log("res.data", res.data)
         })
 
-    }, [])
+    }, [atualizarLista])
 
 
     return (
@@ -40,6 +41,7 @@ export default function HabtisPage() {
                     : ltHabtis.map((habit) => {
                         return (
                             <HabitsCard
+                                key={habit.id}
                                 name={habit.name}
                                 days={habit.days}
                             />
@@ -49,7 +51,11 @@ export default function HabtisPage() {
                 <h1>Meus hábitos</h1>
                 <button className="ButtonCreate" onClick={() => setCreateHabit(true)}>+</button>
                 {createHabit === false ? <></> :
-                    <CreateHabits setCreateHabit={setCreateHabit} />
+                    <CreateHabits
+                        setCreateHabit={setCreateHabit}
+                        setAtualizarLista={setAtualizarLista}
+                        atualizarLista={atualizarLista}
+                    />
                 }
 
             </HabtisContainer>

@@ -12,7 +12,6 @@ export default function HabitsCard({ days, name }) {
         }));
     }
 
-
     return (
         <Card>
             <span>{name}</span>
