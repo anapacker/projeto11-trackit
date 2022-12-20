@@ -1,17 +1,24 @@
 import logo from "../assests/Group8.png"
 import styled from "styled-components"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import UserInfosContext from "../contexts/UserInfosContext"
 
 export default function LoginPage() {
     const [login, setLogin] = useState({ email: "", password: "" })
-
+    const { setUserInfos } = useContext(UserInfosContext)
+    const navigate = useNavigate("/habitos")
 
     function requisicao() {
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", login)
-        promise.then(res => {/* fazer alguma coisa com os dados */ })
-        promise.catch(err => { alert("Você não tem um cadatro ainda.") })
+        promise.then(res => {
+            console.log("res.data", res.data)
+            localStorage.setItem("abc123", JSON.stringify(res.data))
+            setUserInfos(res.data)
+            navigate("/habitos")
+        })
+        promise.catch(err => { alert(`${err.response.data.message}`) })
     }
     return (
         <ContainerPage>
