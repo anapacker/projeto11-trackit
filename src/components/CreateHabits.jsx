@@ -23,6 +23,10 @@ export default function CreateHabits({ setCreateHabit, atualizarLista, setAtuali
                 daysHabit.push(i)
             }
         }
+        if (daysHabit.length === 0) {
+            alert("você precisa selecionar pelo menos um dia")
+            return
+        }
         const body = { name: nameHabit, days: daysHabit }
         setIsDesable(true)
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
@@ -33,6 +37,10 @@ export default function CreateHabits({ setCreateHabit, atualizarLista, setAtuali
             setSelectedDays([false, false, false, false, false, false, false])
             setCreateHabit(false)
             setAtualizarLista(atualizarLista + 1)
+        })
+        promise.catch(err => {
+            setIsDesable(false)
+            alert(`${err.response.data.message}`)
         })
     }
 
