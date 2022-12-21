@@ -4,6 +4,7 @@ import HabtisPage from "./pages/HabtisPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import UserInfosContext from "./contexts/UserInfosContext";
+import TodayPage from "./pages/TodayPage";
 
 function App() {
   const [userInfos, setUserInfos] = useState(JSON.parse(localStorage.getItem("abc123")))
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/cadastro" element={<SignupPage />} />
             <Route path="/habitos" element={<HabtisPage />} />
+            <Route path="/hoje" element={<TodayPage />} />
           </Routes>
         </BrowserRouter>
       </UserInfosContext.Provider>

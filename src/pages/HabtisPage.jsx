@@ -36,10 +36,27 @@ export default function HabtisPage() {
             <NavBar />
 
             <HabtisContainer>
+                <Header>
+
+                    <h1>Meus hábitos</h1>
+                    <button className="ButtonCreate" onClick={() => setCreateHabit(true)}>+</button>
+                </Header>
+                {createHabit === false ? <></> :
+                    <CreateHabits
+                        nameHabit={nameHabit}
+                        setNameHabit={setNameHabit}
+                        setSelectedDays={setSelectedDays}
+                        selectedDays={selectedDays}
+                        setCreateHabit={setCreateHabit}
+                        setAtualizarLista={setAtualizarLista}
+                        atualizarLista={atualizarLista}
+                    />
+                }
+
                 {ltHabtis.length === 0 ?
-                    <p>
+                    <span>
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-                    </p>
+                    </span>
                     : ltHabtis.map((habit) => {
                         return (
                             <HabitsCard
@@ -53,20 +70,6 @@ export default function HabtisPage() {
                         )
                     })
                 }
-                <h1>Meus hábitos</h1>
-                <button className="ButtonCreate" onClick={() => setCreateHabit(true)}>+</button>
-                {createHabit === false ? <></> :
-                    <CreateHabits
-                        nameHabit={nameHabit}
-                        setNameHabit={setNameHabit}
-                        setSelectedDays={setSelectedDays}
-                        selectedDays={selectedDays}
-                        setCreateHabit={setCreateHabit}
-                        setAtualizarLista={setAtualizarLista}
-                        atualizarLista={atualizarLista}
-                    />
-                }
-
             </HabtisContainer>
 
         </>
@@ -75,15 +78,28 @@ export default function HabtisPage() {
 
 
 const HabtisContainer = styled.div`
+    min-width: 100vw;
     background-color: #E5E5E5;
     width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin-top: 70px;
+   span{
+
+   }
+    
+`
+const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    
     h1{
         color: #126BA5;
         font-size: 22.976px;
         font-weight: 400;
+        padding: 20px 0 20px 12px;
     }
     .ButtonCreate{
         width: 40px;
@@ -97,5 +113,6 @@ const HabtisContainer = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+
     }
 `
