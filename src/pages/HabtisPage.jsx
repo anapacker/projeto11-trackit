@@ -12,6 +12,8 @@ export default function HabtisPage() {
     const [ltHabtis, setLtHabits] = useState([])
     const [createHabit, setCreateHabit] = useState(false)
     const [atualizarLista, setAtualizarLista] = useState(0)
+    const [nameHabit, setNameHabit] = useState("")
+    const [selectedDays, setSelectedDays] = useState([false, false, false, false, false, false, false])
 
     const config = {
         headers: {
@@ -52,6 +54,10 @@ export default function HabtisPage() {
                 <button className="ButtonCreate" onClick={() => setCreateHabit(true)}>+</button>
                 {createHabit === false ? <></> :
                     <CreateHabits
+                        nameHabit={nameHabit}
+                        setNameHabit={setNameHabit}
+                        setSelectedDays={setSelectedDays}
+                        selectedDays={selectedDays}
                         setCreateHabit={setCreateHabit}
                         setAtualizarLista={setAtualizarLista}
                         atualizarLista={atualizarLista}
