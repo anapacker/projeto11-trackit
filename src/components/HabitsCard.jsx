@@ -1,7 +1,10 @@
+import axios from "axios";
 import styled from "styled-components"
+import UserInfosContext from "../contexts/UserInfosContext"
+import { useContext } from "react";
 
-export default function HabitsCard({ days, name }) {
-
+export default function HabitsCard({ days, name, id, atualizarLista, setAtualizarLista }) {
+    const { userInfos } = useContext(UserInfosContext)
     const diasDaSemana = [];
     for (let i = 0; i < 7; i++) {
         diasDaSemana.push(days.some(day => {
@@ -11,10 +14,34 @@ export default function HabitsCard({ days, name }) {
                 return false
         }));
     }
+    function deleteHabit() {
+        let confirmDelete
+        confirmDelete = window.confirm("você tem certeza de que quer apagar esse hábito?")
+
+        const config = {
+            headers: {
+                "Authorization": "Bearer " + userInfos.token
+            }
+        }
+        if (confirmDelete) {
+            const promise = axios.delete("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/" + id, config)
+            promise.then(res => {
+                setAtualizarLista(atualizarLista + 1)
+                console.log(res.data)
+            })
+
+        }
+    }
 
     return (
         <Card>
             <span>{name}</span>
+            <button onClick={deleteHabit}>
+                <ion-icon name="trash-outline"></ion-icon>
+            </button>
+
+
+
             <Weekday>
                 <div className={diasDaSemana[0] == true ? "selected" : ""} >D</div>
                 <div className={diasDaSemana[1] == true ? "selected" : ""} >S</div>

@@ -46,6 +46,9 @@ export default function HabtisPage() {
                                 key={habit.id}
                                 name={habit.name}
                                 days={habit.days}
+                                id={habit.id}
+                                setAtualizarLista={setAtualizarLista}
+                                atualizarLista={atualizarLista}
                             />
                         )
                     })
