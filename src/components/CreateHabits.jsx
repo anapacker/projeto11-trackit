@@ -4,7 +4,6 @@ import styled from "styled-components"
 import UserInfosContext from "../contexts/UserInfosContext"
 
 export default function CreateHabits({ setCreateHabit, atualizarLista, setAtualizarLista, nameHabit, setNameHabit, selectedDays, setSelectedDays }) {
-    console.log(selectedDays)
     const { userInfos } = useContext(UserInfosContext)
     const [isDesable, setIsDesable] = useState(false)
 

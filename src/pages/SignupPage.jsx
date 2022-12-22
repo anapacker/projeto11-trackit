@@ -50,6 +50,7 @@ export default function SignupPage() {
                 <StyledLink to="/">Já tem uma conta? Faça login!</StyledLink>
             </SignupForm>
         </ContainerPage>
+
     )
 }
 

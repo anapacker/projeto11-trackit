@@ -2,13 +2,14 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import TodayHabitsCard from "../components/TodayHabitsCard";
 import UserInfosContext from "../contexts/UserInfosContext";
 
 export default function TodayPage() {
     const [ltTodayHabits, setLtTodayHabits] = useState([])
-    const { userInfos } = useContext(UserInfosContext)
+    const { userInfos, setUserInfos } = useContext(UserInfosContext)
     const weekDays = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
     const [qtdDone, setQtdDone] = useState(0)
     const config = {
@@ -20,7 +21,6 @@ export default function TodayPage() {
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
         promise.then(res => {
             setLtTodayHabits(res.data)
-            console.log(res.data)
         })
     }, [])
 
@@ -33,9 +33,12 @@ export default function TodayPage() {
             }
         }
         setQtdDone(qtd)
+
+        return (qtd)
     }
     useEffect(() => {
-        verificaProgresso()
+        const qtd = verificaProgresso()
+        setUserInfos({ ...userInfos, progressBar: qtd / ltTodayHabits.length * 100 })
     }, [ltTodayHabits])
 
     return (
@@ -68,7 +71,7 @@ export default function TodayPage() {
             }
 
 
-
+            <Footer />
         </Section>
     )
 }

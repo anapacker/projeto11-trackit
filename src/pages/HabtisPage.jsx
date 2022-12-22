@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import CreateHabits from "../components/CreateHabits";
+import Footer from "../components/Footer";
 import HabitsCard from "../components/HabitsCard";
 import NavBar from "../components/NavBar";
 import UserInfosContext from "../contexts/UserInfosContext"
@@ -71,7 +72,7 @@ export default function HabtisPage() {
                     })
                 }
             </HabtisContainer>
-
+            <Footer />
         </>
     )
 }
@@ -85,7 +86,7 @@ const HabtisContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+    padding-bottom:100px ;
 `
 const Header = styled.div`
     width: 90%;

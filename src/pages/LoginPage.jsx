@@ -10,12 +10,32 @@ export default function LoginPage() {
     const { setUserInfos } = useContext(UserInfosContext)
     const navigate = useNavigate("/habitos")
 
+
     function requisicao() {
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", login)
         promise.then(res => {
-            console.log("res.data", res.data)
-            localStorage.setItem("abc123", JSON.stringify(res.data))
-            setUserInfos(res.data)
+            const config = {
+                headers: {
+                    "Authorization": "Bearer " + res.data.token
+                }
+            }
+            const promise2 = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+            promise2.then(res2 => {
+                let qtd = 0
+                console.log("res2", res2.data)
+                for (let i = 0; i < res2.data.length; i++) {
+                    if (res2.data[i].done === true) {
+                        qtd = qtd + 1
+                    }
+                }
+
+                setUserInfos({ ...res.data, progressBar: qtd / res2.data.length * 100 })
+                localStorage.setItem("abc123", JSON.stringify({ ...res.data, progressBar: qtd / res2.data.length * 100 }))
+            })
+
+
+
+
             navigate("/habitos")
         })
         promise.catch(err => { alert(`${err.response.data.message}`) })
@@ -25,7 +45,6 @@ export default function LoginPage() {
             <img src={logo} alt="LogoTracklt" />
             <LoginForm onSubmit={(event) => {
                 event.preventDefault()
-                console.log("event", event)
                 requisicao()
             }}>
                 <input type="email" placeholder="email"

@@ -1,11 +1,43 @@
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar"
 import styled from "styled-components"
+import 'react-circular-progressbar/dist/styles.css'
+import { useContext, useEffect, useState } from "react"
+import UserInfosContext from "../contexts/UserInfosContext"
+import { useNavigate } from "react-router-dom"
 
 export default function Footer() {
+    const { userInfos, setUserInfos } = useContext(UserInfosContext)
+    const [progress, setProgress] = useState(0)
+    const navigate = useNavigate()
+    useEffect(() => {
+        // console.log(userInfos)
+        setProgress(userInfos.progressBar)
+    }, [userInfos])
+
+
     return (
         <FooterContainer>
-            <button>Hábitos</button>
-            <Tday>Hoje</Tday>
-            <button>Histórico</button>
+            <button onClick={() => {
+                navigate("/habitos")
+            }}>Hábitos</button>
+            <Tday onClick={() => {
+                navigate("/hoje")
+            }}>
+                <CircularProgressbar text={"Hoje"} value={progress}
+                    styles={buildStyles({
+                        pathColor: '#FFFFFF',
+                        textColor: '#FFFFFF',
+                        trailColor: 'transparent',
+                        backgroundColor: '#52B6FF',
+                        textSize: '18px'
+                    })}
+                />
+
+            </Tday>
+
+            <button onClick={() => {
+                navigate("/historico")
+            }}>Histórico</button>
         </FooterContainer>
     )
 }
@@ -45,4 +77,5 @@ const Tday = styled.div`
     bottom: 10px;
     z-index: 2;
     left: calc(50% - 45px);
+    padding: 2px;
 `
