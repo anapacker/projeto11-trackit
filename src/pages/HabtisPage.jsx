@@ -84,22 +84,21 @@ const HabtisContainer = styled.div`
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    margin-top: 70px;
-   span{
-
-   }
-    
+    align-items: center;
+  
 `
 const Header = styled.div`
+    width: 90%;
     display: flex;
     justify-content: space-between;
-    align-items:center;
+
     
     h1{
         color: #126BA5;
         font-size: 22.976px;
         font-weight: 400;
-        padding: 20px 0 20px 12px;
+        padding: 20px 0 20px 0;
+        margin-top: 70px;
     }
     .ButtonCreate{
         width: 40px;
@@ -108,11 +107,11 @@ const Header = styled.div`
         border-radius: 4.63636px;
         color: #ffffff;
         border: none;
-        font-size: 34px;
+        font-size: 26.976px;
         font-weight: 400;
         display: flex;
         justify-content: center;
         align-items: center;
-
+        margin: 80px 0 20px 0;
     }
 `

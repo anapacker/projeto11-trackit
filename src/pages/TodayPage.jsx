@@ -33,10 +33,12 @@ export default function TodayPage() {
                 : ltTodayHabits.map(hbtTday => {
                     return (
                         <TodayHabitsCard
+                            setLtTodayHabits={setLtTodayHabits}
                             key={hbtTday.id}
+                            id={hbtTday.id}
                             name={hbtTday.name}
                             done={hbtTday.done}
-                            currenteSequence={hbtTday.currentSequence}
+                            currentSequence={hbtTday.currentSequence}
                             highestSequence={hbtTday.highestSequence}
                         />
 

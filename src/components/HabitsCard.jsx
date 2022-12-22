@@ -35,12 +35,13 @@ export default function HabitsCard({ days, name, id, atualizarLista, setAtualiza
 
     return (
         <Card>
-            <span>{name}</span>
-            <button onClick={deleteHabit}>
-                <ion-icon name="trash-outline"></ion-icon>
-            </button>
+            <Hbt>
+                <span>{name}</span>
+                <button onClick={deleteHabit}>
+                    <ion-icon name="trash-outline"></ion-icon>
+                </button>
 
-
+            </Hbt>
 
             <Weekday>
                 <div className={diasDaSemana[0] == true ? "selected" : ""} >D</div>
@@ -55,18 +56,59 @@ export default function HabitsCard({ days, name, id, atualizarLista, setAtualiza
     )
 }
 const Card = styled.div`
+    width: 90%;
+    height: 90px;
     background-color: white;
     border-radius: 3px;
+    margin-bottom: 12px;
 `
+const Hbt = styled.div`
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    span{
+            color: #666666;
+            padding:15px 0 15px 15px;
+            font-size: 18.845px;
+        }
+        button{
+            border: none;
+            background-color: #ffffff;
+            font-size: 18px;
+        }
+`
+
+
 const Weekday = styled.div`
-    background-color: blue;
     display: flex;
+    padding-left: 15px;
+    > div{
+
+        background-color:#ffffff ;
+        border-radius: 3px;
+        border: 1px solid #D4D4D4;
+        color: #D4D4D4;
+        width: 30px;
+        height: 30px;
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        font-size: 20px;
+        font-weight: 400;
+        margin-right: 5px;
+    }
+        
     .selected{
-        background-color: red
+        background-color: #D4D4D4;
+        color: #ffffff;
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        font-size: 20px;
+        font-weight: 400;
+        margin-right: 5px;
     }
 `
-const ButtonsContainer = styled.div`
-    display: flex;
-    background-color: #893636;
 
-`
+
+

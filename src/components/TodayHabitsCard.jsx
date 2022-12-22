@@ -1,15 +1,49 @@
+import axios from "axios"
+import { useContext } from "react"
 import styled from "styled-components"
+import UserInfosContext from "../contexts/UserInfosContext"
 
-export default function TodayHabitsCard({ name, done, currentSequence, highestSequence, id }) {
+export default function TodayHabitsCard({ name, done, currentSequence, highestSequence, id, setLtTodayHabits }) {
+    const { userInfos } = useContext(UserInfosContext)
+    const config = {
+        headers: {
+            "Authorization": "Bearer " + userInfos.token
+        }
+    }
 
+    function marcarHabitoFeito() {
+        let body = {}
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, body, config)
+        promise.then(res => {
+            obterLtHabitos()
+        })
+    }
+
+    function desmarcarHabitoFeito() {
+        let body = {}
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, body, config)
+        promise.then(res => {
+            obterLtHabitos()
+        })
+    }
+    function obterLtHabitos() {
+        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+        promise.then(res => {
+            setLtTodayHabits(res.data)
+            console.log(res.data)
+        })
+    }
     return (
         <CardHabits>
             <HbtDia>
                 <h1>{name}</h1>
-                <span>{currentSequence}</span>
-                <span>{highestSequence}</span>
+                <p>Sequencia atual: {currentSequence} dias</p>
+                <p>Seu recorde: {highestSequence} dias</p>
             </HbtDia>
-            <button className={done ? "done" : ""}>
+            <button
+                className={done ? "done" : ""}
+                onClick={done ? desmarcarHabitoFeito : marcarHabitoFeito}
+            >
                 <ion-icon name="checkmark-outline"></ion-icon>
             </button>
         </CardHabits>
@@ -32,9 +66,9 @@ const CardHabits = styled.div`
         display: flex;
         justify-content:center;
         align-items: center;
-        .done{
-            background-color: green;
-        }
+    }
+    .done{
+        background-color: green;
     }
 `
 const HbtDia = styled.div`
