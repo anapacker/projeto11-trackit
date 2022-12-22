@@ -1,4 +1,5 @@
 import axios from "axios";
+import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
@@ -8,7 +9,8 @@ import UserInfosContext from "../contexts/UserInfosContext";
 export default function TodayPage() {
     const [ltTodayHabits, setLtTodayHabits] = useState([])
     const { userInfos } = useContext(UserInfosContext)
-
+    const weekDays = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+    const [qtdDone, setQtdDone] = useState(0)
     const config = {
         headers: {
             "Authorization": "Bearer " + userInfos.token
@@ -22,14 +24,33 @@ export default function TodayPage() {
         })
     }, [])
 
+    function verificaProgresso() {
+        let qtd = 0
+
+        for (let i = 0; i < ltTodayHabits.length; i++) {
+            if (ltTodayHabits[i].done === true) {
+                qtd = qtd + 1
+            }
+        }
+        setQtdDone(qtd)
+    }
+    useEffect(() => {
+        verificaProgresso()
+    }, [ltTodayHabits])
+
     return (
         <Section>
             <NavBar />
             <TodayDate>
-                segunda, 17/05
+                <h1>{weekDays[dayjs().$W]}, {("00" + (dayjs().$D)).slice(-2)}/{("00" + (dayjs().$M + 1)).slice(-2)}</h1>
+                {qtdDone === 0 ?
+                    <p>Nenhum habito concluido ainda</p> :
+                    <p className="progress">{(qtdDone / ltTodayHabits.length).toFixed(2).replace("0.", "").replace(".", "")}% dos hábitos concluídos</p>
+                }
+
             </TodayDate>
             {ltTodayHabits.length === 0 ?
-                <span>Nenhum habito concluido ainda</span>
+                <p>Nenhum habito registrado pra hoje</p>
                 : ltTodayHabits.map(hbtTday => {
                     return (
                         <TodayHabitsCard
@@ -60,8 +81,15 @@ const Section = styled.div`
     flex-direction: column;
     `
 const TodayDate = styled.div`
-    display: flex;
+    margin-left: 20px;
     margin-top: 85px;
     margin-bottom: 20px;
-
-`
+    h1{
+       color:#126BA5;
+       font-size: 21px;
+       font-weight: 400;
+    }
+    .progress{
+        color:#8FC549;
+    }
+    `
