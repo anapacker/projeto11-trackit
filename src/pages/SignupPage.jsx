@@ -1,8 +1,9 @@
 import styled from "styled-components"
 import logo from "../assets/logotrakit.png"
 import { Link, useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
 import axios from "axios"
+import { ThreeDots } from "react-loader-spinner"
+import { useState } from "react"
 
 
 export default function SignupPage() {
@@ -10,36 +11,13 @@ export default function SignupPage() {
     const [name, setName] = useState("")
     const [sendPhoto, setSendPhoto] = useState("")
     const [password, setPassword] = useState("")
-    const [loading, setLoading] = useState(false)
-    const [loadingDots, setLoadingDots] = useState("")
+    const [disable, setDisable] = useState(false)
     const navigate = useNavigate()
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setLoadingDots((prevDots) => {
-                if (prevDots === '...') {
-                    return '.';
-                } else {
-                    return prevDots + '.';
-                }
-            });
-
-        }, 300)
-
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
-
 
     function completeForm(event) {
         event.preventDefault()
         console.log("event", event)
-        setEmail('');
-        setName('');
-        setSendPhoto('');
-        setPassword('');
-        setLoading(true);
+        setDisable(true)
 
         let dataSendToAPI = {
             email: email,
@@ -48,20 +26,12 @@ export default function SignupPage() {
             password: password
         }
         const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up`, dataSendToAPI)
-        setEmail('');
-        setName('');
-        setSendPhoto('');
-        setPassword('');
-        setLoading(false);
-
-
         promise.then(() => {
             navigate(`/`)
-
         })
-            .catch(error => {
-                alert(`${error.response.data.message}`)
-            })
+        promise.catch(error => {
+            alert(`${error.response.data.message}`)
+        })
         console.log("dados", dataSendToAPI)
     }
 
@@ -75,28 +45,32 @@ export default function SignupPage() {
                     placeholder="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    disabled={loading}
-                    required />
+                    disabled={disable.toString()}
+                    required
+                />
                 <input type="text"
                     placeholder="nome"
                     value={name}
                     onChange={e => setName(e.target.value)}
-                    disabled={loading}
-                    required />
+                    disabled={disable.toString()}
+                    required
+                />
                 <input type="url"
                     placeholder="foto"
                     value={sendPhoto}
                     onChange={e => setSendPhoto(e.target.value)}
-                    disabled={loading}
-                    required />
+                    disabled={disable.toString()}
+                    required
+                />
                 <input type="password"
                     placeholder="senha"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    disabled={loading}
-                    required />
+                    disabled={disable.toString()}
+                    required
+                />
 
-                <button type="submit" disabled={loading}>{loading ? `${loadingDots}` : 'Cadastrar'}</button>
+                <button type="submit" disabled={disable.toString()}>{!disable ? 'Cadastrar' : <ThreeDots color="FFFFFF" height={55} width={55} />}</button>
                 <StyledLink to="/">Já tem uma conta? Faça login!</StyledLink>
             </SignupForm>
         </ContainerPage>
@@ -140,6 +114,7 @@ const SignupForm = styled.form`
         border: none;
         margin-bottom: 20px;
     }
+   
    
 `
 const StyledLink = styled(Link)`

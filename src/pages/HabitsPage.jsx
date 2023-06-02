@@ -2,11 +2,16 @@ import styled from "styled-components"
 import Footer from "../components/Footer"
 import CreateHabits from "../components/CreateHabits"
 import NavBar from "../components/NavBar"
+import { useContext } from "react";
+import DataContextProvider from "../context/DataContextProvider";
 
 export default function HabitsPage() {
+    const { token, userPicture } = useContext(DataContextProvider);
+    console.log(token, userPicture)
+
     return (
         <>
-            <NavBar />
+            <NavBar userPicture={userPicture} />
             <HabtisContainer>
                 <Header>
                     <h1>Meus hábitos</h1>

@@ -1,15 +1,56 @@
+import { useContext, useState } from "react";
 import logo from "../assets/logotrakit.png"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import DataContextProvider from "../context/DataContextProvider";
+
 
 export default function LoginPage() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const { setToken, setUserPicture } = useContext(DataContextProvider);
+    const navigate = useNavigate()
+
+    function loginToAccont(e) {
+        e.preventDefault()
+
+        let dadosLoadingEnviarAPI = {
+            email: email,
+            password: password
+        }
+        console.log(dadosLoadingEnviarAPI)
+        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`, dadosLoadingEnviarAPI)
+            .then(resp => {
+                setToken(resp.data.token)
+                setUserPicture(resp.data.image)
+                navigate(`/habitos`)
+            })
+            .catch(erro => {
+                alert(erro.response.data.message)
+            })
+    }
     return (
         <ContainerPage>
             <img src={logo} alt="logo trackit" />
 
-            <LoginForm>
-                <input type="email" placeholder="email" />
-                <input type="password" placeholder="senha" />
+            <LoginForm onSubmit={loginToAccont}>
+                <label htmlFor="email"></label>
+                <input
+                    type="email"
+                    placeholder="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <input
+                    type="password"
+                    placeholder="senha"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
                 <button type="submit">Entrar</button>
                 <StyledLink to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
