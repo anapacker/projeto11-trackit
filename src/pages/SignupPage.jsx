@@ -16,7 +16,6 @@ export default function SignupPage() {
 
     function completeForm(event) {
         event.preventDefault()
-        console.log("event", event)
         setDisable(true)
 
         let dataSendToAPI = {
@@ -32,7 +31,6 @@ export default function SignupPage() {
         promise.catch(error => {
             alert(`${error.response.data.message}`)
         })
-        console.log("dados", dataSendToAPI)
     }
 
     return (
@@ -45,32 +43,32 @@ export default function SignupPage() {
                     placeholder="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    disabled={disable.toString()}
+                    disabled={disable}
                     required
                 />
                 <input type="text"
                     placeholder="nome"
                     value={name}
                     onChange={e => setName(e.target.value)}
-                    disabled={disable.toString()}
+                    disabled={disable}
                     required
                 />
                 <input type="url"
                     placeholder="foto"
                     value={sendPhoto}
                     onChange={e => setSendPhoto(e.target.value)}
-                    disabled={disable.toString()}
+                    disabled={disable}
                     required
                 />
                 <input type="password"
                     placeholder="senha"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    disabled={disable.toString()}
+                    disabled={disable}
                     required
                 />
 
-                <button type="submit" disabled={disable.toString()}>{!disable ? 'Cadastrar' : <ThreeDots color="FFFFFF" height={55} width={55} />}</button>
+                <button type="submit" disabled={disable}>{!disable ? 'Cadastrar' : <ThreeDots color="FFFFFF" height={55} width={55} />}</button>
                 <StyledLink to="/">Já tem uma conta? Faça login!</StyledLink>
             </SignupForm>
         </ContainerPage>

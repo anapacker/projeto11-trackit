@@ -1,11 +1,15 @@
 import styled from "styled-components"
 import NavBar from "./NavBar"
 import Footer from "./Footer"
+import { useContext } from "react";
+import DataContextProvider from "../context/DataContextProvider";
 
 export default function TodayPage() {
+    const { token, userPicture } = useContext(DataContextProvider);
+
     return (
         <>
-            <NavBar />
+            <NavBar userPicture={userPicture} />
             <CardHabitsContainer>
                 <TodayCard>
                     <HbtDia>

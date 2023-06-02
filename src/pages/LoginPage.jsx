@@ -10,6 +10,7 @@ export default function LoginPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const { setToken, setUserPicture } = useContext(DataContextProvider);
+
     const navigate = useNavigate()
 
     function loginToAccont(e) {
@@ -24,7 +25,7 @@ export default function LoginPage() {
             .then(resp => {
                 setToken(resp.data.token)
                 setUserPicture(resp.data.image)
-                navigate(`/habitos`)
+                navigate(`/hoje`)
             })
             .catch(erro => {
                 alert(erro.response.data.message)
@@ -39,17 +40,18 @@ export default function LoginPage() {
                 <input
                     type="email"
                     placeholder="email"
-                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
+
                 />
 
                 <input
                     type="password"
                     placeholder="senha"
-                    required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
 
                 <button type="submit">Entrar</button>
