@@ -4,30 +4,26 @@ import Footer from "./Footer"
 import { useContext } from "react";
 import DataContextProvider from "../context/DataContextProvider";
 
-export default function TodayPage() {
+export default function TodayHabitsPage() {
     const { token, userPicture } = useContext(DataContextProvider);
 
     return (
         <>
             <NavBar userPicture={userPicture} />
-            <CardHabitsContainer>
-                <TodayCard>
-                    <HbtDia>
-                        <h1>Fazer um crochezinho</h1>
-                        <p>sequencia atual: 3 dias</p>
-                        <p>seu recorde: 5 dias</p>
-                    </HbtDia>
-                </TodayCard>
+            <TodayHabitsContainer>
+                <h1>Fazer um crochezinho</h1>
+                <p>sequencia atual: 3 dias</p>
+                <p>seu recorde: 5 dias</p>
                 <button>
                     <ion-icon name="checkmart-outline"></ion-icon>
                 </button>
-            </CardHabitsContainer>
+            </TodayHabitsContainer>
             <Footer />
         </>
     )
 }
 
-const CardHabitsContainer = styled.div`
+const TodayHabitsContainer = styled.div`
     min-width: 100vw;
     background-color: #E5E5E5;
     width: 100vw;

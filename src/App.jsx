@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import HabitsPage from "./pages/HabitsPage";
-import TodayHabitsPage from "./components/TodayHabitsCard";
 import { useState } from "react";
 import DataContextProvider from "./context/DataContextProvider";
+import TodayPage from "./pages/TodayPage";
 
 function App() {
   const [token, setToken] = useState("")
@@ -18,7 +18,7 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/cadastro" element={<SignupPage />} />
           <Route path="/habitos" element={<HabitsPage />} />
-          <Route path="/hoje" element={<TodayHabitsPage />} />
+          <Route path="/hoje" element={<TodayPage />} />
         </Routes>
       </BrowserRouter>
     </DataContextProvider.Provider>

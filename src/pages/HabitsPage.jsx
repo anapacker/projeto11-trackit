@@ -2,12 +2,14 @@ import styled from "styled-components"
 import Footer from "../components/Footer"
 import CreateHabits from "../components/CreateHabits"
 import NavBar from "../components/NavBar"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import DataContextProvider from "../context/DataContextProvider";
 
 export default function HabitsPage() {
+    const [creatingNewHabbit, setCreatingNewHabbit] = useState(false)
     const { token, userPicture } = useContext(DataContextProvider);
     console.log(token, userPicture)
+    console.log("creatin", creatingNewHabbit)
 
     return (
         <>
@@ -15,13 +17,13 @@ export default function HabitsPage() {
             <HabtisContainer>
                 <Header>
                     <h1>Meus hábitos</h1>
-                    <button className="ButtonCreate">+</button>
+                    <button className="ButtonCreate" onClick={() => setCreatingNewHabbit(!creatingNewHabbit)}>+</button>
                 </Header>
-                <CreateHabits>
-                    <span>
-                        Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-                    </span>
-                </CreateHabits>
+                {creatingNewHabbit ? <CreateHabits /> : ""}
+
+                <span>
+                    Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
+                </span>
             </HabtisContainer>
 
             <Footer />
