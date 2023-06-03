@@ -45,6 +45,7 @@ export default function SignupPage() {
                     onChange={e => setEmail(e.target.value)}
                     disabled={disable}
                     required
+                    data-test="email-input"
                 />
                 <input type="text"
                     placeholder="nome"
@@ -52,6 +53,7 @@ export default function SignupPage() {
                     onChange={e => setName(e.target.value)}
                     disabled={disable}
                     required
+                    data-test="user-name-input"
                 />
                 <input type="url"
                     placeholder="foto"
@@ -59,6 +61,7 @@ export default function SignupPage() {
                     onChange={e => setSendPhoto(e.target.value)}
                     disabled={disable}
                     required
+                    data-test="user-image-input"
                 />
                 <input type="password"
                     placeholder="senha"
@@ -66,6 +69,7 @@ export default function SignupPage() {
                     onChange={e => setPassword(e.target.value)}
                     disabled={disable}
                     required
+                    data-test="password-input"
                 />
 
                 <button type="submit" disabled={disable}>{!disable ? 'Cadastrar' : <ThreeDots color="FFFFFF" height={55} width={55} />}</button>

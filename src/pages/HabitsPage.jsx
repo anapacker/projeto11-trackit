@@ -17,10 +17,9 @@ export default function HabitsPage() {
             <HabtisContainer>
                 <Header>
                     <h1>Meus hábitos</h1>
-                    <button className="ButtonCreate" onClick={() => setCreatingNewHabbit(!creatingNewHabbit)}>+</button>
+                    <button data-test="habit-create-btn" className="ButtonCreate" onClick={() => setCreatingNewHabbit(!creatingNewHabbit)}>+</button>
                 </Header>
                 {creatingNewHabbit ? <CreateHabits /> : ""}
-
                 <span>
                     Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
                 </span>

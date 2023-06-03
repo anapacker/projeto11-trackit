@@ -43,7 +43,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-
+                    data-test="email-input"
                 />
 
                 <input
@@ -52,10 +52,11 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    data-test="password-input"
                 />
 
-                <button type="submit">Entrar</button>
-                <StyledLink to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
+                <button data-test="login-btn" type="submit">Entrar</button>
+                <StyledLink data-test="signup-link" to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
             </LoginForm>
         </ContainerPage>
 
