@@ -1,12 +1,26 @@
 import { useContext, useState } from "react"
 import styled from "styled-components"
 import DataContextProvider from "../context/DataContextProvider"
+import axios from "axios"
 
 export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setWeekdays }) {
-    const { creatingNewHabbit, setCreatingNewHabbit } = useContext(DataContextProvider)
+    const { token, creatingNewHabbit, setCreatingNewHabbit } = useContext(DataContextProvider)
     const [isDisable, setIsDisable] = useState(false)
 
-
+    function saveHabbit() {
+        const config = {
+            headers: { "Authorization": `Bearer ${token}` }
+        }
+        let habbitToSendAPI = {
+            name: nameHabbit,
+            days: weekdays
+        }
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, habbitToSendAPI, config)
+        promise.then(resp => {
+            console.log(resp.data)
+        }
+        )
+    }
     function isDaySelected(day) {
         let diaJaFoiClicado = false;
 
@@ -73,7 +87,7 @@ export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setW
 
             <ButtonsContainer>
                 <button className="cancelar" onClick={() => setCreatingNewHabbit(false)}>Cancelar</button>
-                <button className="salvar">Salvar</button>
+                <button className="salvar" onClick={() => saveHabbit()}>Salvar</button>
             </ButtonsContainer>
         </CreateHbtContainer>
     )
