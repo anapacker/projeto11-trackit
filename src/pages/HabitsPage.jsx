@@ -7,6 +7,8 @@ import DataContextProvider from "../context/DataContextProvider";
 
 export default function HabitsPage() {
     const { token, userPicture, creatingNewHabbit, setCreatingNewHabbit } = useContext(DataContextProvider);
+    const [nameHabbit, setNameHabbit] = useState("")
+    const [weekdays, setWeekdays] = useState([])
 
     return (
         <>
@@ -16,7 +18,7 @@ export default function HabitsPage() {
                     <h1>Meus hábitos</h1>
                     <button data-test="habit-create-btn" className="ButtonCreate" onClick={() => setCreatingNewHabbit(!creatingNewHabbit)}>+</button>
                 </Header>
-                {creatingNewHabbit ? <CreateHabits /> : ""}
+                {creatingNewHabbit ? <CreateHabits nameHabbit={nameHabbit} setNameHabbit={setNameHabbit} weekdays={weekdays} setWeekdays={setWeekdays} /> : ""}
                 <span>
                     Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
                 </span>

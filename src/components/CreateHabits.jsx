@@ -2,11 +2,10 @@ import { useContext, useState } from "react"
 import styled from "styled-components"
 import DataContextProvider from "../context/DataContextProvider"
 
-export default function CreateHabits() {
+export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setWeekdays }) {
     const { creatingNewHabbit, setCreatingNewHabbit } = useContext(DataContextProvider)
-    const [nameHabbit, setNameHabbit] = useState("")
     const [isDisable, setIsDisable] = useState(false)
-    const [weekdays, setWeekdays] = useState([])
+
 
     function isDaySelected(day) {
         let diaJaFoiClicado = false;
