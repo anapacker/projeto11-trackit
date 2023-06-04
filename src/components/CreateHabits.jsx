@@ -1,32 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
+import DataContextProvider from "../context/DataContextProvider"
 
 export default function CreateHabits() {
+    const { creatingNewHabbit, setCreatingNewHabbit } = useContext(DataContextProvider)
     const [nameHabbit, setNameHabbit] = useState("")
-    const [disable, setDisable] = useState(false)
+    const [isDisable, setIsDisable] = useState(false)
     const [weekdays, setWeekdays] = useState([])
 
-    function selectDays(day) {
-        let weekdaysUpdated = []
-
-        console.log("DAY: ", day)
-        console.log("WEEKDAYS: ", weekdays)
-        console.log(`TEM ALGUM DIA EM WEEKDAYS IGUAL A ${day}? : `, weekdays.some((element) => element == day))
-
-        if (weekdays.some((element) => element == day)) {
-
-            weekdaysUpdated = weekdays.filter(param => param != day)
-
-            console.log(`ARRAY FILTRADO: `, weekdays.filter(param => param != day))
-            setWeekdays(weekdaysUpdated)
-        } else {
-            setWeekdays([...weekdays, day])
-        }
-
-    }
-
-    function selectDaysTeste(day) {
-        let weekdaysUpdated = []
+    function isDaySelected(day) {
         let diaJaFoiClicado = false;
 
         for (let i = 0; i < weekdays.length; i++) {
@@ -35,8 +17,15 @@ export default function CreateHabits() {
                 break;
             }
         }
-        if (diaJaFoiClicado) {
+        return diaJaFoiClicado
+    }
+
+    function selectDays(day) {
+        let weekdaysUpdated = []
+
+        if (isDaySelected(day)) {
             for (let j = 0; j < weekdays.length; j++) {
+
                 if (weekdays[j] != day) {
                     weekdaysUpdated.push(weekdays[j])
                 }
@@ -49,41 +38,42 @@ export default function CreateHabits() {
 
     console.log("weekdays", weekdays)
     return (
-        <CreateHbtContainer>
+        <CreateHbtContainer data-test="habit-create-container">
             <input placeholder="nome do hábito"
                 type="text"
                 value={nameHabbit}
                 onChange={e => setNameHabbit(e.target.value)}
-                disabled={disable}
+                disabled={isDisable}
                 required
+                data-test="habit-name-input"
             />
 
-            <Weekday>
-                <button onClick={() => {
+            <Weekdays>
+                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(0)} onClick={() => {
                     selectDays(0)
-                }}>D</button>
-                <button onClick={() => {
+                }}>D</ButtonDay>
+                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(1)} onClick={() => {
                     selectDays(1)
-                }}>S</button>
-                <button onClick={() => {
+                }}>S</ButtonDay>
+                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(2)} onClick={() => {
                     selectDays(2)
-                }}>T</button>
-                <button onClick={() => {
+                }}>T</ButtonDay>
+                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(3)} onClick={() => {
                     selectDays(3)
-                }}>Q</button>
-                <button onClick={() => {
+                }}>Q</ButtonDay>
+                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(4)} onClick={() => {
                     selectDays(4)
-                }}>Q</button>
-                <button onClick={() => {
+                }}>Q</ButtonDay>
+                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(5)} onClick={() => {
                     selectDays(5)
-                }}>S</button>
-                <button onClick={() => {
+                }}>S</ButtonDay>
+                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(6)} onClick={() => {
                     selectDays(6)
-                }}>S</button>
-            </Weekday>
+                }}>S</ButtonDay>
+            </Weekdays>
 
             <ButtonsContainer>
-                <button className="cancelar">Cancelar</button>
+                <button className="cancelar" onClick={() => setCreatingNewHabbit(false)}>Cancelar</button>
                 <button className="salvar">Salvar</button>
             </ButtonsContainer>
         </CreateHbtContainer>
@@ -110,36 +100,24 @@ const CreateHbtContainer = styled.div`
     }
 
 `
-const Weekday = styled.div`
+const Weekdays = styled.div`
     display: flex;
     margin-top: 13px;
-    margin-right: 50px;
-    button{
-        background-color:#ffffff ;
-        border-radius: 3px;
-        border: 1px solid #D4D4D4;
-        color: #D4D4D4;
-        width: 30px;
-        height: 30px;
-        display:flex;
-        justify-content: center;
-        align-items:center;
-        font-size: 20px;
-        font-weight: 400;
-        margin-right: 5px;
-    }        
-        .selected{
-            background-color: #D4D4D4;
-            color: #ffffff;
-            display:flex;
-            justify-content: center;
-            align-items:center;
-            font-size: 20px;
-            font-weight: 400;
-            margin-right: 5px;
-        }
-
-
+    margin-right: 50px;       
+`
+const ButtonDay = styled.button`
+    background-color:${(props) => (props.propsStyledDay ? '#CFCFCF' : '#ffffff')};
+    border-radius: 3px;
+    border: 1px solid ${(props) => (props.propsStyledDay ? '#CFCFCF' : '#D4D4D4')};
+    color:${(props) => (props.propsStyledDay ? '#FFFFFF' : '#CFCFCF')} ;
+    width: 30px;
+    height: 30px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    font-size: 20px;
+    font-weight: 400;
+    margin-right: 5px;
 `
 const ButtonsContainer = styled.div`
     margin-top: 25px;

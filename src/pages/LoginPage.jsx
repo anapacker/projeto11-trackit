@@ -20,7 +20,6 @@ export default function LoginPage() {
             email: email,
             password: password
         }
-        console.log(dadosLoadingEnviarAPI)
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`, dadosLoadingEnviarAPI)
             .then(resp => {
                 setToken(resp.data.token)
@@ -64,7 +63,7 @@ export default function LoginPage() {
 }
 
 const ContainerPage = styled.div`
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
     justify-content: center;
     align-items: center;

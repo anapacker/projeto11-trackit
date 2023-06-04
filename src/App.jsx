@@ -9,7 +9,8 @@ import TodayPage from "./pages/TodayPage";
 function App() {
   const [token, setToken] = useState("")
   const [userPicture, setUserPicture] = useState("")
-  const contextValue = { token, setToken, userPicture, setUserPicture }
+  const [creatingNewHabbit, setCreatingNewHabbit] = useState(false)
+  const contextValue = { token, setToken, userPicture, setUserPicture, creatingNewHabbit, setCreatingNewHabbit }
 
   return (
     <DataContextProvider.Provider value={contextValue}>

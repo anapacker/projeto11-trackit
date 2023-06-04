@@ -3,9 +3,9 @@ import styled from "styled-components"
 
 export default function NavBar({ userPicture }) {
     return (
-        <Header>
+        <Header data-test="header">
             <LogoImage src={logoImage} alt="logoHabitsPage" />
-            <ProfileImage src={userPicture} alt="imagem do perfil" />
+            <ProfileImage data-test="avatar" src={userPicture} alt="imagem do perfil" />
         </Header>
     )
 }

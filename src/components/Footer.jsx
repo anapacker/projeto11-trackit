@@ -5,7 +5,7 @@ export default function Footer() {
     const navigate = useNavigate()
     return (
         <FooterContainer>
-            <button onClick={() => { navigate("/habitos") }}>Hábitos</button>
+            <button data-test="habit-link" onClick={() => { navigate("/habitos") }}>Hábitos</button>
             <Tday onClick={() => { navigate("/hoje") }}></Tday>
             <button onClick={() => { navigate("/historico") }}>Histórico</button>
         </FooterContainer>

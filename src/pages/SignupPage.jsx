@@ -72,8 +72,8 @@ export default function SignupPage() {
                     data-test="password-input"
                 />
 
-                <button type="submit" disabled={disable}>{!disable ? 'Cadastrar' : <ThreeDots color="FFFFFF" height={55} width={55} />}</button>
-                <StyledLink to="/">Já tem uma conta? Faça login!</StyledLink>
+                <button data-test="signup-btn" type="submit" disabled={disable}>{!disable ? 'Cadastrar' : <ThreeDots color="FFFFFF" height={55} width={55} />}</button>
+                <StyledLink data-test="login-link" to="/">Já tem uma conta? Faça login!</StyledLink>
             </SignupForm>
         </ContainerPage>
     )

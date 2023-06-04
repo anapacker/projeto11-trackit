@@ -6,10 +6,7 @@ import { useContext, useState } from "react";
 import DataContextProvider from "../context/DataContextProvider";
 
 export default function HabitsPage() {
-    const [creatingNewHabbit, setCreatingNewHabbit] = useState(false)
-    const { token, userPicture } = useContext(DataContextProvider);
-    console.log(token, userPicture)
-    console.log("creatin", creatingNewHabbit)
+    const { token, userPicture, creatingNewHabbit, setCreatingNewHabbit } = useContext(DataContextProvider);
 
     return (
         <>
