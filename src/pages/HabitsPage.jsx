@@ -27,12 +27,10 @@ export default function HabitsPage() {
     const config = {
         headers: { "Authorization": `Bearer ${token}` }
     }
-    console.log("componente renderizou")
     useEffect(() => {
         const promise = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, config)
         promise.then(resp => {
             setHabbitsList(resp.data)
-            console.log(resp.data)
         }
         )
 
@@ -45,7 +43,7 @@ export default function HabitsPage() {
                     <h1>Meus hábitos</h1>
                     <button data-test="habit-create-btn" className="ButtonCreate" onClick={() => setCreatingNewHabbit(!creatingNewHabbit)}>+</button>
                 </Header>
-                {creatingNewHabbit ? <CreateHabits nameHabbit={nameHabbit} setNameHabbit={setNameHabbit} weekdays={weekdays} setWeekdays={setWeekdays} /> : ""}
+                {creatingNewHabbit ? <CreateHabits habbitsList={habbitsList} setHabbitsList={setHabbitsList} nameHabbit={nameHabbit} setNameHabbit={setNameHabbit} weekdays={weekdays} setWeekdays={setWeekdays} /> : ""}
                 {habbitsList.length === 0 ?
                     <span>
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!

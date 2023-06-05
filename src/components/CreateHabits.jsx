@@ -4,7 +4,7 @@ import DataContextProvider from "../context/DataContextProvider"
 import axios from "axios"
 import { ThreeDots } from "react-loader-spinner"
 
-export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setWeekdays }) {
+export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setWeekdays, habbitsList, setHabbitsList }) {
     const { token, creatingNewHabbit, setCreatingNewHabbit } = useContext(DataContextProvider)
     const [isDisable, setIsDisable] = useState(false)
 
@@ -20,6 +20,10 @@ export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setW
         const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, habbitToSendAPI, config)
         promise.then(resp => {
             console.log(resp.data)
+            setHabbitsList([...habbitsList, resp.data])
+            setNameHabbit("")
+            setWeekdays([])
+            setCreatingNewHabbit(false)
         }
         )
     }
@@ -51,7 +55,6 @@ export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setW
         }
     }
 
-    console.log("weekdays", weekdays)
     return (
         <CreateHbtContainer data-test="habit-create-container">
             <input placeholder="nome do hábito"
