@@ -5,10 +5,12 @@ import { useContext, useEffect, useState } from "react"
 import DataContextProvider from "../context/DataContextProvider"
 import axios from "axios"
 import HabbitToday from "../components/HabbitToday"
+import dayjs from "dayjs"
 
 export default function TodayPage() {
     const { token, userPicture } = useContext(DataContextProvider)
     const [habbitsToday, setHabbitsToday] = useState([])
+    const weekDays = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
     const config = {
         headers: { "Authorization": `Bearer ${token}` }
     }
@@ -28,7 +30,7 @@ export default function TodayPage() {
         <Section>
             <NavBar userPicture={userPicture} />
             <TodayDate>
-                <h1>Meus habitos</h1>
+                <h1>{weekDays[dayjs().$W]}, {("00" + (dayjs().$D)).slice(-2)}/{("00" + (dayjs().$M + 1)).slice(-2)}</h1>
                 {habbitsToday.length === 0 ?
                     <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                     :
