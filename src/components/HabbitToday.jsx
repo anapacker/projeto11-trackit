@@ -7,19 +7,31 @@ import axios from "axios";
 
 export default function HabbitToday({ habbit, atualiza, setAtualiza }) {
     const { token } = useContext(DataContextProvider);
-
+    const [selected, setSelected] = useState(false)
+    console.log(habbit)
     function setHabbitAsDone() {
         const body = {}
+
         const config = {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         }
-        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habbit.id}/check`, body, config)
-        promise.then(resp => {
-            setAtualiza(!atualiza)
-            console.log(resp.data)
-        })
+        if (habbit.done) {
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habbit.id}/uncheck`, body, config)
+            promise.then(resp => {
+                setAtualiza(!atualiza)
+                setSelected(true)
+                console.log(resp.data)
+            })
+        } else {
+            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habbit.id}/check`, body, config)
+            promise.then(resp => {
+                setAtualiza(!atualiza)
+                setSelected(true)
+                console.log(resp.data)
+            })
+        }
     }
 
     return (
@@ -28,7 +40,7 @@ export default function HabbitToday({ habbit, atualiza, setAtualiza }) {
                 <h1>{habbit.name}</h1>
                 <p>Sequência atual: <span>{habbit.currentSequence}</span></p>
                 <p>Seu recorde: <span>{habbit.highestSequence}</span></p>
-                <button onClick={setHabbitAsDone}>
+                <button selected={selected} onClick={setHabbitAsDone}>
                     <ion-icon name="checkmark-outline"></ion-icon>
                 </button>
             </TodayHabitsContainer>
@@ -71,13 +83,6 @@ const TodayHabitsContainer = styled.li`
         grid-area: p2;
     }
 
-    span.selected {
-        color: #8FC549;
-    }
-
-    &.selected {
-        background-color: #8FC549;
-    }
 
     button {
         grid-area: button;
@@ -86,12 +91,8 @@ const TodayHabitsContainer = styled.li`
         height: 69px;
         border-radius: 5px;
         border: none;
-        background-color: #EBEBEB;
+        background-color: ${props => props.selected ? '#8FC549' : '#EBEBEB'};
         transition: background-color .3s ease-out;
-
-        &.selected {
-            background-color: #8FC549;
-        }
 
         ion-icon {
             font-size: 45px;
