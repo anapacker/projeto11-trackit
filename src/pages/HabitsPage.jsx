@@ -55,6 +55,7 @@ export default function HabitsPage() {
                         return (
                             <CreatedHabbit>
                                 <h2>{habbit.name}</h2>
+                                <ion-icon name="trash-outline"></ion-icon>
                                 <Weekdays>
                                     <ButtonDay propsStyledDay={isDaySelected(0, habbit)}>D</ButtonDay>
                                     <ButtonDay propsStyledDay={isDaySelected(1, habbit)}>S</ButtonDay>
@@ -121,10 +122,16 @@ const CreatedHabbit = styled.div`
     padding-left: 15px;
     margin-bottom: 15px;
     border-radius: 3px;
+    position: relative;
     h2{
         margin-top:15px;
         font-size: 20px;
         font-family: 'Roboto';
+    }
+    ion-icon{
+        position: absolute;
+        top: 5px;
+        right: 5px;
     }
     `
 const Weekdays = styled.div`

@@ -2,12 +2,14 @@ import { useContext, useState } from "react"
 import styled from "styled-components"
 import DataContextProvider from "../context/DataContextProvider"
 import axios from "axios"
+import { ThreeDots } from "react-loader-spinner"
 
 export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setWeekdays }) {
     const { token, creatingNewHabbit, setCreatingNewHabbit } = useContext(DataContextProvider)
     const [isDisable, setIsDisable] = useState(false)
 
     function saveHabbit() {
+        setIsDisable(true)
         const config = {
             headers: { "Authorization": `Bearer ${token}` }
         }
@@ -86,8 +88,8 @@ export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setW
             </Weekdays>
 
             <ButtonsContainer>
-                <button className="cancelar" onClick={() => setCreatingNewHabbit(false)}>Cancelar</button>
-                <button className="salvar" onClick={() => saveHabbit()}>Salvar</button>
+                <button className="cancelar" disabled={isDisable} onClick={() => setCreatingNewHabbit(false)}>Cancelar</button>
+                <button className="salvar" disabled={isDisable} onClick={() => saveHabbit()}>{!isDisable ? "Salvar" : <ThreeDots color="#FFFFFF" height={30} width={30} />}</button>
             </ButtonsContainer>
         </CreateHbtContainer>
     )
@@ -155,5 +157,9 @@ const ButtonsContainer = styled.div`
         margin-right: 20px;
         font-size: 14px;
         font-weight:400;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
     }
 `
