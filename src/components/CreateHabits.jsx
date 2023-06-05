@@ -71,32 +71,32 @@ export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setW
             />
 
             <Weekdays>
-                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(0)} onClick={() => {
+                <ButtonDay data-test="habit-day" disabled={isDisable} propsStyledDay={isDaySelected(0)} onClick={() => {
                     selectDays(0)
                 }}>D</ButtonDay>
-                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(1)} onClick={() => {
+                <ButtonDay data-test="habit-day" disabled={isDisable} propsStyledDay={isDaySelected(1)} onClick={() => {
                     selectDays(1)
                 }}>S</ButtonDay>
-                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(2)} onClick={() => {
+                <ButtonDay data-test="habit-day" disabled={isDisable} propsStyledDay={isDaySelected(2)} onClick={() => {
                     selectDays(2)
                 }}>T</ButtonDay>
-                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(3)} onClick={() => {
+                <ButtonDay data-test="habit-day" disabled={isDisable} propsStyledDay={isDaySelected(3)} onClick={() => {
                     selectDays(3)
                 }}>Q</ButtonDay>
-                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(4)} onClick={() => {
+                <ButtonDay data-test="habit-day" disabled={isDisable} propsStyledDay={isDaySelected(4)} onClick={() => {
                     selectDays(4)
                 }}>Q</ButtonDay>
-                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(5)} onClick={() => {
+                <ButtonDay data-test="habit-day" disabled={isDisable} propsStyledDay={isDaySelected(5)} onClick={() => {
                     selectDays(5)
                 }}>S</ButtonDay>
-                <ButtonDay disabled={isDisable} propsStyledDay={isDaySelected(6)} onClick={() => {
+                <ButtonDay data-test="habit-day" disabled={isDisable} propsStyledDay={isDaySelected(6)} onClick={() => {
                     selectDays(6)
                 }}>S</ButtonDay>
             </Weekdays>
 
             <ButtonsContainer>
-                <button className="cancelar" disabled={isDisable} onClick={() => setCreatingNewHabbit(false)}>Cancelar</button>
-                <button className="salvar" disabled={isDisable} onClick={() => saveHabbit()}>{!isDisable ? "Salvar" : <ThreeDots color="#FFFFFF" height={30} width={30} />}</button>
+                <button data-test="habit-create-cancel-btn" className="cancelar" disabled={isDisable} onClick={() => setCreatingNewHabbit(false)}>Cancelar</button>
+                <button data-test="habit-create-save-btn" className="salvar" disabled={isDisable} onClick={() => saveHabbit()}>{!isDisable ? "Salvar" : <ThreeDots color="#FFFFFF" height={30} width={30} />}</button>
             </ButtonsContainer>
         </CreateHbtContainer>
     )
