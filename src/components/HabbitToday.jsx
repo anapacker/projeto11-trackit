@@ -33,11 +33,11 @@ export default function HabbitToday({ habbit, atualiza, setAtualiza }) {
 
     return (
         <>
-            <TodayHabitsContainer selected={habbit.done}>
-                <h1>{habbit.name}</h1>
-                <p>Sequência atual: <span>{habbit.currentSequence}</span></p>
-                <p>Seu recorde: <span>{habbit.highestSequence}</span></p>
-                <button onClick={setHabbitAsDone}>
+            <TodayHabitsContainer data-test="today-habit-container" selected={habbit.done}>
+                <h1 data-test="today-habit-name">{habbit.name}</h1>
+                <p data-test="today-habit-sequence">Sequência atual: <span>{habbit.currentSequence}</span></p>
+                <p data-test="today-habit-record">Seu recorde: <span>{habbit.highestSequence}</span></p>
+                <button data-test="today-habit-check-btn" onClick={setHabbitAsDone}>
                     <ion-icon name="checkmark-outline"></ion-icon>
                 </button>
             </TodayHabitsContainer>

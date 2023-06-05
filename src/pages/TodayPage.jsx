@@ -42,8 +42,8 @@ export default function TodayPage() {
         <Section>
             <NavBar userPicture={userPicture} />
             <TodayDate>
-                <h1>{weekDays[dayjs().$W]}, {("00" + (dayjs().$D)).slice(-2)}/{("00" + (dayjs().$M + 1)).slice(-2)}</h1>
-                {percentageHabbitsDone() == 0 ? <p>Nenhum hábito concluído ainda</p> : <p>{Math.round(percentageHabbitsDone())}% dos hábitos concluídos</p>}
+                <h1 data-test="today">{weekDays[dayjs().$W]}, {("00" + (dayjs().$D)).slice(-2)}/{("00" + (dayjs().$M + 1)).slice(-2)}</h1>
+                {percentageHabbitsDone() == 0 ? <p data-test="today-counter" >Nenhum hábito concluído ainda</p> : <p data-test="today-counter" >{Math.round(percentageHabbitsDone())}% dos hábitos concluídos</p>}
                 {habbitsToday.length === 0 ?
                     <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                     :
