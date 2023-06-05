@@ -1,11 +1,26 @@
 import styled from "styled-components"
 import NavBar from "./NavBar"
 import Footer from "./Footer"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import DataContextProvider from "../context/DataContextProvider";
+import axios from "axios";
 
-export default function HabbitToday({ habbit }) {
-    const { token, userPicture } = useContext(DataContextProvider);
+export default function HabbitToday({ habbit, atualiza, setAtualiza }) {
+    const { token } = useContext(DataContextProvider);
+
+    function setHabbitAsDone() {
+        const body = {}
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habbit.id}/check`, body, config)
+        promise.then(resp => {
+            setAtualiza(!atualiza)
+            console.log(resp.data)
+        })
+    }
 
     return (
         <>
@@ -13,7 +28,7 @@ export default function HabbitToday({ habbit }) {
                 <h1>{habbit.name}</h1>
                 <p>Sequência atual: <span>{habbit.currentSequence}</span></p>
                 <p>Seu recorde: <span>{habbit.highestSequence}</span></p>
-                <button>
+                <button onClick={setHabbitAsDone}>
                     <ion-icon name="checkmark-outline"></ion-icon>
                 </button>
             </TodayHabitsContainer>

@@ -10,33 +10,46 @@ import dayjs from "dayjs"
 export default function TodayPage() {
     const { token, userPicture } = useContext(DataContextProvider)
     const [habbitsToday, setHabbitsToday] = useState([])
+    const [atualiza, setAtualiza] = useState(false)
     const weekDays = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
     const config = {
         headers: { "Authorization": `Bearer ${token}` }
     }
 
+    function percentageHabbitsDone() {
+        let qtdHabbitsDone = 0
+        if (habbitsToday.length == 0) {
+            return 0
+        }
+        for (let i = 0; i < habbitsToday.length; i++) {
+            if (habbitsToday[i].done) {
+                qtdHabbitsDone++
+            }
+        }
+        return (qtdHabbitsDone / habbitsToday.length) * 100
+    }
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`, config)
         promise.then(resp => {
-            console.log(resp.data)
             setHabbitsToday(resp.data)
         })
 
 
-    }, [])
+    }, [atualiza])
 
     return (
         <Section>
             <NavBar userPicture={userPicture} />
             <TodayDate>
                 <h1>{weekDays[dayjs().$W]}, {("00" + (dayjs().$D)).slice(-2)}/{("00" + (dayjs().$M + 1)).slice(-2)}</h1>
+                {percentageHabbitsDone() == 0 ? <p>Nenhum hábito concluído ainda</p> : <p>{Math.round(percentageHabbitsDone())}% dos hábitos concluídos</p>}
                 {habbitsToday.length === 0 ?
                     <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                     :
                     habbitsToday.map(habbit => {
                         return (
-                            <HabbitToday habbit={habbit} key={habbit.id} />
+                            <HabbitToday atualiza={atualiza} setAtualiza={setAtualiza} habbit={habbit} key={habbit.id} />
                         )
                     })
                 }
