@@ -45,6 +45,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    disabled={isDisable}
                     data-test="email-input"
                 />
 
@@ -54,10 +55,11 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    disabled={isDisable}
                     data-test="password-input"
                 />
 
-                <button data-test="login-btn" type="submit">{!isDisable ? 'Entrar' : <ThreeDots color="#FFFFFF" height={55} width={55} />}</button>
+                <button data-test="login-btn" disabled={isDisable} type="submit">{!isDisable ? 'Entrar' : <ThreeDots color="#FFFFFF" height={55} width={55} />}</button>
                 <StyledLink data-test="signup-link" to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
             </LoginForm>
         </ContainerPage>

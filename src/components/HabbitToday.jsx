@@ -7,7 +7,6 @@ import axios from "axios";
 
 export default function HabbitToday({ habbit, atualiza, setAtualiza }) {
     const { token } = useContext(DataContextProvider);
-    const [selected, setSelected] = useState(false)
     console.log(habbit)
     function setHabbitAsDone() {
         const body = {}
@@ -21,14 +20,12 @@ export default function HabbitToday({ habbit, atualiza, setAtualiza }) {
             const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habbit.id}/uncheck`, body, config)
             promise.then(resp => {
                 setAtualiza(!atualiza)
-                setSelected(true)
                 console.log(resp.data)
             })
         } else {
             const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habbit.id}/check`, body, config)
             promise.then(resp => {
                 setAtualiza(!atualiza)
-                setSelected(true)
                 console.log(resp.data)
             })
         }
@@ -36,11 +33,11 @@ export default function HabbitToday({ habbit, atualiza, setAtualiza }) {
 
     return (
         <>
-            <TodayHabitsContainer>
+            <TodayHabitsContainer selected={habbit.done}>
                 <h1>{habbit.name}</h1>
                 <p>Sequência atual: <span>{habbit.currentSequence}</span></p>
                 <p>Seu recorde: <span>{habbit.highestSequence}</span></p>
-                <button selected={selected} onClick={setHabbitAsDone}>
+                <button onClick={setHabbitAsDone}>
                     <ion-icon name="checkmark-outline"></ion-icon>
                 </button>
             </TodayHabitsContainer>
