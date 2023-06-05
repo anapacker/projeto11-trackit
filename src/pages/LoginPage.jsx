@@ -4,17 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import DataContextProvider from "../context/DataContextProvider";
+import { ThreeDots } from "react-loader-spinner";
 
 
 export default function LoginPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const { setToken, setUserPicture } = useContext(DataContextProvider);
+    const [isDisable, setIsDisable] = useState(false)
 
     const navigate = useNavigate()
 
     function loginToAccont(e) {
         e.preventDefault()
+        setIsDisable(true)
 
         let dadosLoadingEnviarAPI = {
             email: email,
@@ -54,7 +57,7 @@ export default function LoginPage() {
                     data-test="password-input"
                 />
 
-                <button data-test="login-btn" type="submit">Entrar</button>
+                <button data-test="login-btn" type="submit">{!isDisable ? 'Entrar' : <ThreeDots color="#FFFFFF" height={55} width={55} />}</button>
                 <StyledLink data-test="signup-link" to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
             </LoginForm>
         </ContainerPage>
@@ -96,6 +99,9 @@ const LoginForm = styled.form`
         color:#FFFFFF ;
         border: none;
         margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
    
 `
