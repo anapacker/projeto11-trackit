@@ -31,6 +31,7 @@ export default function LoginPage() {
             })
             .catch(erro => {
                 alert(erro.response.data.message)
+                setIsDisable(false)
             })
     }
     return (
