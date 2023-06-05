@@ -72,7 +72,7 @@ export default function SignupPage() {
                     data-test="password-input"
                 />
 
-                <button data-test="signup-btn" type="submit" disabled={disable}>{!disable ? 'Cadastrar' : <ThreeDots color="FFFFFF" height={55} width={55} />}</button>
+                <button data-test="signup-btn" type="submit" disabled={disable}>{!disable ? 'Cadastrar' : <ThreeDots color="#FFFFFF" height={55} width={55} />}</button>
                 <StyledLink data-test="login-link" to="/">Já tem uma conta? Faça login!</StyledLink>
             </SignupForm>
         </ContainerPage>
@@ -115,6 +115,9 @@ const SignupForm = styled.form`
         color:#FFFFFF ;
         border: none;
         margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
    
    
