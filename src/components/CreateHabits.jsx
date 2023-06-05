@@ -24,8 +24,12 @@ export default function CreateHabits({ nameHabbit, setNameHabbit, weekdays, setW
             setNameHabbit("")
             setWeekdays([])
             setCreatingNewHabbit(false)
-        }
-        )
+        })
+        promise.catch(error => {
+            setIsDisable(false)
+            console.log(error)
+            alert(error.message)
+        })
     }
     function isDaySelected(day) {
         let diaJaFoiClicado = false;

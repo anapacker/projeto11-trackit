@@ -31,8 +31,8 @@ export default function HabitsPage() {
         const promise = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, config)
         promise.then(resp => {
             setHabbitsList(resp.data)
-        }
-        )
+        })
+
 
     }, [])
     return (
