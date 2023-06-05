@@ -70,17 +70,17 @@ export default function HabitsPage() {
                     :
                     habbitsList.map(habbit => {
                         return (
-                            <CreatedHabbit key={habbit.id}>
-                                <h2>{habbit.name}</h2>
-                                <ion-icon name="trash-outline" onClick={() => deleteHabbit(habbit.id)}></ion-icon>
+                            <CreatedHabbit data-test="habit-container" key={habbit.id}>
+                                <h2 data-test="habit-name">{habbit.name}</h2>
+                                <ion-icon data-test="habit-delete-btn" name="trash-outline" onClick={() => deleteHabbit(habbit.id)}></ion-icon>
                                 <Weekdays>
-                                    <ButtonDay propsStyledDay={isDaySelected(0, habbit)}>D</ButtonDay>
-                                    <ButtonDay propsStyledDay={isDaySelected(1, habbit)}>S</ButtonDay>
-                                    <ButtonDay propsStyledDay={isDaySelected(2, habbit)}>T</ButtonDay>
-                                    <ButtonDay propsStyledDay={isDaySelected(3, habbit)}>Q</ButtonDay>
-                                    <ButtonDay propsStyledDay={isDaySelected(4, habbit)}>Q</ButtonDay>
-                                    <ButtonDay propsStyledDay={isDaySelected(5, habbit)}>S</ButtonDay>
-                                    <ButtonDay propsStyledDay={isDaySelected(6, habbit)}>S</ButtonDay>
+                                    <ButtonDay data-test="habit-day" propsStyledDay={isDaySelected(0, habbit)}>D</ButtonDay>
+                                    <ButtonDay data-test="habit-day" propsStyledDay={isDaySelected(1, habbit)}>S</ButtonDay>
+                                    <ButtonDay data-test="habit-day" propsStyledDay={isDaySelected(2, habbit)}>T</ButtonDay>
+                                    <ButtonDay data-test="habit-day" propsStyledDay={isDaySelected(3, habbit)}>Q</ButtonDay>
+                                    <ButtonDay data-test="habit-day" propsStyledDay={isDaySelected(4, habbit)}>Q</ButtonDay>
+                                    <ButtonDay data-test="habit-day" propsStyledDay={isDaySelected(5, habbit)}>S</ButtonDay>
+                                    <ButtonDay data-test="habit-day" propsStyledDay={isDaySelected(6, habbit)}>S</ButtonDay>
                                 </Weekdays>
                             </CreatedHabbit>
                         )
