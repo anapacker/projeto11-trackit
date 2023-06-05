@@ -4,10 +4,10 @@ import styled from "styled-components"
 export default function Footer() {
     const navigate = useNavigate()
     return (
-        <FooterContainer>
+        <FooterContainer data-test="menu">
             <button data-test="habit-link" onClick={() => { navigate("/habitos") }}>Hábitos</button>
-            <Tday onClick={() => { navigate("/hoje") }}></Tday>
-            <button onClick={() => { navigate("/historico") }}>Histórico</button>
+            <Tday data-test="today-link" onClick={() => { navigate("/hoje") }}></Tday>
+            <button data-test="history-link" onClick={() => { navigate("/historico") }}>Histórico</button>
         </FooterContainer>
     )
 }
