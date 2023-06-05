@@ -30,6 +30,7 @@ export default function SignupPage() {
         })
         promise.catch(error => {
             alert(`${error.response.data.message}`)
+            setDisable(false)
         })
     }
 
