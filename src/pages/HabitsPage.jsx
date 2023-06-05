@@ -12,6 +12,25 @@ export default function HabitsPage() {
     const [weekdays, setWeekdays] = useState([])
     const [habbitsList, setHabbitsList] = useState([])
 
+    function deleteHabbit(id) {
+        console.log(id)
+        const confirmation = confirm(`Você tem certeza que deseja apagar esse hábito?`)
+        if (confirmation === false)
+            return
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        const request = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
+        request.then(resp => {
+            console.log(resp.data)
+            const newArray = habbitsList.filter(habbit => habbit.id != id)
+            setHabbitsList(newArray)
+        })
+
+    }
+
     function isDaySelected(day, habbit) {
         let daySelected = false;
 
@@ -51,9 +70,9 @@ export default function HabitsPage() {
                     :
                     habbitsList.map(habbit => {
                         return (
-                            <CreatedHabbit>
+                            <CreatedHabbit key={habbit.id}>
                                 <h2>{habbit.name}</h2>
-                                <ion-icon name="trash-outline"></ion-icon>
+                                <ion-icon name="trash-outline" onClick={() => deleteHabbit(habbit.id)}></ion-icon>
                                 <Weekdays>
                                     <ButtonDay propsStyledDay={isDaySelected(0, habbit)}>D</ButtonDay>
                                     <ButtonDay propsStyledDay={isDaySelected(1, habbit)}>S</ButtonDay>
